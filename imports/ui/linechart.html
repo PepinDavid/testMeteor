@@ -8,7 +8,7 @@
                 <div>
                     <label for="">Select departement : </label>
                     <select id="selectDept">
-                        <option>Select departement</option>
+                        <option id="initDept">Select departement</option>
                         {{#each departements}} 
                             {{>departement}}     
                         {{/each}} 
@@ -17,7 +17,7 @@
                 <div>
                     <label for="">Selection l'année de début :</label>
                     <select id="sinceYears">
-                        <option>Selection l'année de début</option>
+                        <option id="initSinceYear">Selection l'année de début</option>
                         {{#each years}} 
                             {{>year}}     
                         {{/each}}
@@ -25,19 +25,19 @@
                 </div>
                 <div>
                     <label for="">Select departement : </label>
-                    <select id="afterYears">
-                        <option>Selection l'année de fin</option>
+                    <select id="beforeYears">
+                        <option id="initBeforeYear">Selection l'année de fin</option>
                         {{#each years}} 
                             {{>year}}     
                         {{/each}} 
                     </select>
-                </div>
-                
+                </div>                
             </form>
         </div>
         <div id="chartContainer">
             <div class="container">
                 <h2>Populations du département : {{depts}}</h2>
+                <h2>Depuis l'année {{sinceYear}} à {{beforeYear}}</h2>
             </div>
             <svg id='lineChart'>
             </svg>

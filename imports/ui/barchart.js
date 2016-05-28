@@ -4,20 +4,18 @@ import { ReactiveVar} from 'meteor/reactive-var';
 import { Depts } from '../api/departements.js';
 import './barchart.html';
 
-Session.setDefault('annee', 2014);
-Session.setDefault('fields' , { fields: {"population": 1,"nom": 1,"année": 1} });
 Session.setDefault('year', 2014);
+Session.setDefault('sort', { nom: 1 });
 
 Template.Chart.onCreated(function () {
-    var self = this;
-    self.db = new ReactiveVar();
-    self.subscribe('depts.list');
+    this.db = new ReactiveVar();
+    this.subscribe('depts.list');
 });
 Template.Chart.helpers({
      myCollection() {
         var dataset = Depts.find({
-            "année": 2014
-        }, Session.get('fields')).fetch();
+            "année": Session.get('year')}
+        , { fields: {"population": 1,"nom": 1,"année": 1, "code": 1}, sort: Session.get('sort') }).fetch();
         dataset.forEach(function (obj, i) {
             obj.rows = i;
         });
@@ -90,6 +88,9 @@ Template.Chart.onRendered(function () {
                 })
                 .attr('data-nom', function (d) {
                     return d.nom
+                })
+                .attr('data-code', function (d){
+                    return d.code
                 });
 
             bars.transition()
@@ -120,30 +121,56 @@ Template.Chart.onRendered(function () {
 Template.Chart.events({
     "change #year" (event, t) {
         var target = event.target,
-        selector = {},
+//        selector = {},
         dataset = [];
         
         event.preventDefault();
-        Session.set('barChart', true);
         
-        selector['année'] = parseInt(target.value);
-        dataset = Depts.find(selector, Session.get('fields')).fetch();        
+//        selector['année'] = parseInt(target.value);
+        Session.set('year', parseInt(target.value))
+        dataset = Depts.find({
+            "année": Session.get('year')}
+        , { fields: {"population": 1,"nom": 1,"année": 1, "code": 1}, sort: Session.get('sort') }).fetch();        
         dataset.forEach(function (obj, i) {
             obj.rows = i;
         });
-        Session.set('year', target.value)
+        $('.tick').remove();
+        $('rect').remove();
+        $('#initYear').remove();
+        
         Template.instance().db.set(dataset);
         
+    },
+    "change .option"(e){
+        var value = parseInt(e.target.value);
+        switch(value){
+           case 0:
+                Session.set('sort', {population: 1});
+                break;
+            case 1:
+                Session.set('sort', {population: -1});
+                break;
+            case 2:
+                Session.set('sort', {nom: 1});
+                break;
+            case 3:
+                Session.set('sort', {nom: -1})
+            default:
+                break;
+        }
         $('.tick').remove();
+        $('rect').remove();
     },
     "mouseenter rect" (event, t) {
         var target = event.target,
         info = {},
         divInfo = $('.info'),
         divName = $('#name'),
-        divPop = $('#pop');
+        divPop = $('#pop'),
+        divCode = $('#code');
         
         divName.text("Nom du département : "+$(target).data('nom'));
+        divCode.text("Code du département : "+$(target).data('code'));
         divPop.text("Population : "+$(target).data('pop'));
         divInfo.css('top', event.pageY+10+'px');
         divInfo.css('left', event.pageX+20+'px');

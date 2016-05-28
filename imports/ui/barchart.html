@@ -5,10 +5,18 @@
             <h2>bar chart D3JS</h2></div>
         <div id="chartPanel">
             <form>
-               <label for="">Select year : </label>
+               <label for="">Sélectionnez l'année de la recherche : </label>
                 <select id="year">
-                   <option >Select year</option>
+                   <option id="initYear">Select year</option>
                     {{#if Template.subscriptionsReady}} {{#each years}} {{>year}} {{/each}} {{/if}}
+                </select>
+                <label for="">Sélectionnez l'option de rangement : </label>
+                <select class="option">
+                   <option >Select option</option>
+                   <option value="0">Du moins peuplé au plus peuplé</option>
+                   <option value="1">Du plus peuplé au moins peuplé</option>
+                   <option value="2">Ordre alphabétique</option>
+                   <option value="3">Ordre alphabétique inverse</option>
                 </select>
             </form>
         </div>
@@ -24,6 +32,7 @@
     <div class="info">
         <div class="text-center">
             <div id="name"></div>
+            <div id="code"></div>
             <div id="pop"></div>
         </div>
     </div>

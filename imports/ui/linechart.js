@@ -5,20 +5,22 @@ import { Depts } from '../api/departements.js';
 import './linechart.html';
 
 Session.setDefault('nom', "NORD");
-Session.setDefault('gtYear', "2008");
-Session.setDefault('ltYear', "2015");
+Session.setDefault('gtYear', 2008);
+Session.setDefault('ltYear', 2014);
 Session.setDefault('fields' , { fields: {"population": 1,"nom": 1,"année": 1} });
 
 Template.Line.onCreated(function () {
     this.database = new ReactiveVar();
+    this.request = new ReactiveVar();
     this.subscribe('depts.list');
 });
 Template.Line.helpers({
-     myCollection() {
-        var dataset = Depts.find({
-            "nom": "NORD"
-        }, Session.get('fields')).fetch();
-        Template.instance().database.set(dataset)
+     myCollection() {         
+        Template.instance().request.set(Depts.find({
+            "nom": Session.get("nom"), "année": {$lte: Session.get('ltYear'), $gte: Session.get('gtYear')} 
+        }, Session.get('fields')).fetch());
+        var dataset = Template.instance().request.get();
+        Template.instance().database.set(dataset);
     },
     depts(){
         return Session.get('nom')
@@ -30,6 +32,12 @@ Template.Line.helpers({
     years() {
         var annee = [{"année": 2008}, {"année":2009}, {"année":2010}, {"année":2011}, {"année":2012}, {"année":2013}, {"année":2014}]
         return annee
+    },
+    sinceYear(){
+        return Session.get('gtYear');
+    },
+    beforeYear(){
+        return Session.get('ltYear');
     }
 })
 Template.Line.onRendered(function () {
@@ -105,11 +113,45 @@ Template.Line.events({
         
         Session.set('nom', target.value)
         selector['nom'] = target.value;
+        selector['année'] = {$lte: Session.get('ltYear'), $gte: Session.get('gtYear')}
         $('.tick').remove();
         $('path').remove();
+        $('#initDept').remove();
         
         dataset = Depts.find(selector, Session.get('fields')).fetch();
         Template.instance().database.set(dataset);
         
-    }
+    },
+    "change #sinceYears"(e){
+        e.preventDefault();
+        var y = parseInt(e.target.value);
+        
+        Session.set('gtYear', y);
+        $('.tick').remove();
+        $('path').remove();
+        $('#initSinceYear').remove();
+        
+        dataset = Template.instance().request.get();
+        Template.instance().database.set(dataset);
+    },
+    "change #beforeYears"(e){
+        e.preventDefault();
+        var y = parseInt(e.target.value);
+        
+        Session.set('ltYear', y);
+        $('.tick').remove();
+        $('path').remove();
+        $('#initBeforeYear').remove();
+        
+        dataset = Template.instance().request.get();
+        Template.instance().database.set(dataset);
+    },
+//    "mousemove svg"(e){
+//        this.target = e.target, pt = this.target.createSVGPoint();
+//        function cursorPoint(evt){
+//            var pt.x = evt.clientX; var pt.y = evt.clientY;
+//            return pt.matrixTransform($(this.target).getScreenCTM()inverse());
+//        }
+//        console.log(cursorPoint(e));
+//    }
 });

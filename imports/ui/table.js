@@ -13,7 +13,7 @@ Template.table.helpers({
         },
         tableSettings() {
             return {
-                rowsPerPage: 25,
+                rowsPerPage: 15,
                 showFilter: true,
                 fileds: [{
                     key: 'nom',
