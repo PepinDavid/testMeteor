@@ -1,0 +1,5 @@
+<template name="table">
+    {{#if Template.subscriptionsReady}}
+        {{> reactiveTable collection=myCollection settings=tableSettings}}
+    {{/if}}
+</template>

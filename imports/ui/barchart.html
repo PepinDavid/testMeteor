@@ -1,0 +1,36 @@
+<template name="Chart">
+    <span class="{{myCollection}}"></span>
+    <div class="container">
+        <div class="container text-center">
+            <h2>bar chart D3JS</h2></div>
+        <div id="chartPanel">
+            <form>
+               <label for="">Select year : </label>
+                <select id="year">
+                   <option >Select year</option>
+                    {{#if Template.subscriptionsReady}} {{#each years}} {{>year}} {{/each}} {{/if}}
+                </select>
+            </form>
+        </div>
+        <div id="chartContainer">
+            <div class="container">
+                <h2>Populations pour l'année : {{annee}}</h2>
+            </div>
+
+            <svg id='barChart'>
+            </svg>
+        </div>
+    </div>
+    <div class="info">
+        <div class="text-center">
+            <div id="name"></div>
+            <div id="pop"></div>
+        </div>
+    </div>
+    <!--    {{> info information=parentInfo}}-->
+</template>
+
+
+<template name="year">   
+    <option data-year="{{année}}" value="{{année}}">{{année}}</option>
+</template>

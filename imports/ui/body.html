@@ -1,0 +1,45 @@
+<body>
+    <div class="container">
+        {{>dateNow}}
+    </div>
+    <div class="container">
+        <div class="text-center">
+            <h2>With reactiveTable</h2></div>
+        {{> table class='table'}}
+    </div>
+    <div class="container">   
+       {{#if Template.subscriptionsReady}}   
+            {{> Chart }}
+        {{/if}}
+    </div>
+    <div class="container">   
+       {{#if Template.subscriptionsReady}}   
+            {{> Line }}
+        {{/if}}
+    </div>
+    <div class="container" style="width: 100%">
+       <div class="text-center">
+           <h2>All data receive by subscribe</h2>
+       </div>
+        <table class="table">
+            <tr>
+                <th>Nom</th>
+                <th>Code</th>
+                <th>Année</th>
+                <th>population</th>
+            </tr>
+            {{#if Template.subscriptionsReady}}
+                {{#each depts}} 
+                    {{> dept}} 
+                {{/each}}
+            {{/if}}
+        </table>
+    </div>
+</body>
+
+
+<template name="dateNow">
+    <div class="text-center">
+        <h2>{{clock}}</h2>
+    </div>
+</template>

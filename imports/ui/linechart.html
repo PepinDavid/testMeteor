@@ -1,0 +1,50 @@
+<template name="Line">
+    <span class="{{myCollection}}"></span>
+    <div class="container">
+        <div class="container text-center">
+            <h2>Line chart D3JS</h2></div>
+        <div id="linePanel">
+            <form>
+                <div>
+                    <label for="">Select departement : </label>
+                    <select id="selectDept">
+                        <option>Select departement</option>
+                        {{#each departements}} 
+                            {{>departement}}     
+                        {{/each}} 
+                    </select>
+                </div>
+                <div>
+                    <label for="">Selection l'année de début :</label>
+                    <select id="sinceYears">
+                        <option>Selection l'année de début</option>
+                        {{#each years}} 
+                            {{>year}}     
+                        {{/each}}
+                    </select>
+                </div>
+                <div>
+                    <label for="">Select departement : </label>
+                    <select id="afterYears">
+                        <option>Selection l'année de fin</option>
+                        {{#each years}} 
+                            {{>year}}     
+                        {{/each}} 
+                    </select>
+                </div>
+                
+            </form>
+        </div>
+        <div id="chartContainer">
+            <div class="container">
+                <h2>Populations du département : {{depts}}</h2>
+            </div>
+            <svg id='lineChart'>
+            </svg>
+        </div>
+    </div>
+</template>
+
+<template name="departement">   
+    <option value="{{nom}}">{{nom}}</option>
+</template>
