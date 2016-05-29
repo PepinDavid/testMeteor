@@ -3,9 +3,12 @@
         {{>dateNow}}
     </div>
     <div class="container">
-        <div class="text-center">
-            <h2>With reactiveTable</h2></div>
-        {{> table class='table'}}
+       <div style='padding: 0 15%'>
+            <div class="text-center">
+                <h2>With reactiveTable</h2>
+            </div>
+            {{> table class='table'}}
+        </div>
     </div>
     <div class="container">   
        {{#if Template.subscriptionsReady}}   
@@ -17,7 +20,7 @@
             {{> Line }}
         {{/if}}
     </div>
-    <div class="container" style="width: 100%">
+    <div class="container">
        <div class="text-center">
            <h2>All data receive by subscribe</h2>
        </div>
@@ -34,6 +37,10 @@
                 {{/each}}
             {{/if}}
         </table>
+        <div style="margin-left: 33%">
+            
+        <button id='more' class="btn btn-info btn-group">Click for more</button>
+        </div>
     </div>
 </body>
 

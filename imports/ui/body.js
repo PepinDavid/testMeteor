@@ -9,6 +9,7 @@ import './table.js';
 import './barchart.js';
 import './linechart.js';
 import './body.html';
+Session.setDefault('nb',10)
 Template.body.onCreated(function(){
         this.subscribe("depts.list")
 });
@@ -19,11 +20,20 @@ Template.dateNow.helpers({
 });
 Template.body.helpers({
     depts() {
-        const depts = Depts.find().fetch();
+        const depts = Depts.find({},{"limit": Session.get('nb'), "sort": {"nom": 1, "année": 1} }).fetch();
         return depts;
     }
 });
-
+Template.body.events({
+    'click #more'(e){
+        e.preventDefault();
+        var count = Session.get('nb'),
+        up = 10 + count;
+        
+        Session.set('nb', up);
+        
+    }
+})
 Meteor.startup(function () {
     setInterval(function () {
         Meteor.call("getServerTime", function (error, result) {

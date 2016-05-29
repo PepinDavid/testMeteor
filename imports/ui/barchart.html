@@ -2,22 +2,27 @@
     <span class="{{myCollection}}"></span>
     <div class="container">
         <div class="container text-center">
-            <h2>bar chart D3JS</h2></div>
+            <h2>bar chart D3JS</h2>
+            </div>
         <div id="chartPanel">
             <form>
-               <label for="">Sélectionnez l'année de la recherche : </label>
-                <select id="year" class="form-controller">
-                   <option id="initYear">Select year</option>
-                    {{#if Template.subscriptionsReady}} {{#each years}} {{>year}} {{/each}} {{/if}}
-                </select>
-                <label for="">Sélectionnez l'option de rangement : </label>
-                <select class="option form-controller">
-                   <option >Select option</option>
-                   <option value="0">Du moins peuplé au plus peuplé</option>
-                   <option value="1">Du plus peuplé au moins peuplé</option>
-                   <option value="2">Ordre alphabétique</option>
-                   <option value="3">Ordre alphabétique inverse</option>
-                </select>
+              <div class="form-group">
+                   <label for="">Sélectionnez l'année de la recherche : </label>
+                    <select id="year" class="form-controller">
+                       <option id="initYear">Select year</option>
+                        {{#if Template.subscriptionsReady}} {{#each years}} {{>year}} {{/each}} {{/if}}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Sélectionnez l'option de rangement : </label>
+                    <select class="option form-controller">
+                       <option >Select option</option>
+                       <option value="0">Du moins peuplé au plus peuplé</option>
+                       <option value="1">Du plus peuplé au moins peuplé</option>
+                       <option value="2">Ordre alphabétique</option>
+                       <option value="3">Ordre alphabétique inverse</option>
+                    </select>
+                </div>
             </form>
         </div>
         <div id="chartContainer">

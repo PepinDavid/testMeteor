@@ -25,8 +25,16 @@ Template.Chart.helpers({
         return Session.get('year')
     },
     years() {
-        var annee = [{"année": 2008}, {"année":2009}, {"année":2010}, {"année":2011}, {"année":2012}, {"année":2013}, {"année":2014}]
-        return annee
+        var annee = _.uniq(Depts.find({},{ sort: {"annee": 1} }).fetch(),function(dept){
+            return dept['année'];
+        }).sort();
+//            [{"année": 2008}, {"année":2009}, {"année":2010}, {"année":2011}, {"année":2012}, {"année":2013}, {"année":2014}]
+//        annne = annee.sort(function(a, b){
+//            if(a['année'] > b['année']){
+//                return a
+//            }
+//        });
+        return annee;
     },
     departements(){
         var depts = Depts.find({"année": 2014},{ fields: {"nom":1} }).fetch();
@@ -146,20 +154,27 @@ Template.Chart.events({
         switch(value){
            case 0:
                 Session.set('sort', {population: 1});
+                $('.tick').remove();
+                $('rect').remove();
                 break;
             case 1:
                 Session.set('sort', {population: -1});
+                $('.tick').remove();
+                $('rect').remove();
                 break;
             case 2:
                 Session.set('sort', {nom: 1});
+                $('.tick').remove();
+                $('rect').remove();
                 break;
             case 3:
                 Session.set('sort', {nom: -1})
+                $('.tick').remove();
+                $('rect').remove();
             default:
                 break;
         }
-        $('.tick').remove();
-        $('rect').remove();
+        
     },
     "mouseenter rect" (event, t) {
         var target = event.target,

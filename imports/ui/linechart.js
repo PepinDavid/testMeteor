@@ -30,7 +30,10 @@ Template.Line.helpers({
         return depts;
     },
     years() {
-        var annee = [{"année": 2008}, {"année":2009}, {"année":2010}, {"année":2011}, {"année":2012}, {"année":2013}, {"année":2014}]
+        var annee = _.uniq(Depts.find({"nom": "NORD"},{ sort: {"annee": 1} }).fetch(),function(dept){
+            return dept['année'];
+        });
+//            [{"année": 2008}, {"année":2009}, {"année":2010}, {"année":2011}, {"année":2012}, {"année":2013}, {"année":2014}]
         return annee
     },
     sinceYear(){

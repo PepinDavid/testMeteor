@@ -5,33 +5,27 @@
             <h2>Line chart D3JS</h2></div>
         <div id="linePanel">
             <form>
-                <div>
+                <div class="form-group">
                     <label for="">Select departement : </label>
                     <select id="selectDept" class="form-controller">
                         <option id="initDept">Select departement</option>
-                        {{#each departements}} 
-                            {{>departement}}     
-                        {{/each}} 
+                        {{#each departements}} {{>departement}} {{/each}}
                     </select>
                 </div>
-                <div>
+                <div class="form-group">
                     <label for="">Selection l'année de début :</label>
                     <select id="sinceYears" class="form-controller">
                         <option id="initSinceYear">Selection l'année de début</option>
-                        {{#each years}} 
-                            {{>year}}     
-                        {{/each}}
+                        {{#each years}} {{>year}} {{/each}}
                     </select>
                 </div>
-                <div>
+                <div class="form-group">
                     <label for="">Select departement : </label>
                     <select id="beforeYears" class="form-controller">
                         <option id="initBeforeYear">Selection l'année de fin</option>
-                        {{#each years}} 
-                            {{>year}}     
-                        {{/each}} 
+                        {{#each years}} {{>year}} {{/each}}
                     </select>
-                </div>                
+                </div>
             </form>
         </div>
         <div id="chartContainer">
@@ -45,6 +39,6 @@
     </div>
 </template>
 
-<template name="departement">   
+<template name="departement">
     <option value="{{nom}}">{{nom}}</option>
 </template>
