@@ -7,7 +7,7 @@
             <form>
                 <div>
                     <label for="">Select departement : </label>
-                    <select id="selectDept">
+                    <select id="selectDept" class="form-controller">
                         <option id="initDept">Select departement</option>
                         {{#each departements}} 
                             {{>departement}}     
@@ -16,7 +16,7 @@
                 </div>
                 <div>
                     <label for="">Selection l'année de début :</label>
-                    <select id="sinceYears">
+                    <select id="sinceYears" class="form-controller">
                         <option id="initSinceYear">Selection l'année de début</option>
                         {{#each years}} 
                             {{>year}}     
@@ -25,7 +25,7 @@
                 </div>
                 <div>
                     <label for="">Select departement : </label>
-                    <select id="beforeYears">
+                    <select id="beforeYears" class="form-controller">
                         <option id="initBeforeYear">Selection l'année de fin</option>
                         {{#each years}} 
                             {{>year}}     

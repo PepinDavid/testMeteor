@@ -170,12 +170,11 @@ Template.Chart.events({
         divCode = $('#code');
         
         divName.text("Nom du département : "+$(target).data('nom'));
-        divCode.text("Code du département : "+$(target).data('code'));
+        divCode.text("Code postal : "+$(target).data('code'));
         divPop.text("Population : "+$(target).data('pop'));
+        divInfo.removeClass('hidden');
         divInfo.css('top', event.pageY+10+'px');
-        divInfo.css('left', event.pageX+20+'px');
-        divInfo.show();
-        
+        divInfo.css('left', event.pageX+20+'px');        
         $(target).attr("fill", "red");
 
     },
@@ -188,6 +187,6 @@ Template.Chart.events({
         var target = event.target,
         divInfo = $('.info');
         $(target).attr("fill", "blue");
-        divInfo.hide();
+        divInfo.addClass('hidden');
     }
 });

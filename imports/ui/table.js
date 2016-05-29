@@ -31,10 +31,3 @@ Template.table.helpers({
             }
         }
 });
-
-//Template.table.events({
-//    "click td.année"(e, template){
-//        var text = e.target.innerText;
-//        console.log(template.filter.set(text))
-//    }
-//})

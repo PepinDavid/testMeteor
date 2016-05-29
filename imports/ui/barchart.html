@@ -6,12 +6,12 @@
         <div id="chartPanel">
             <form>
                <label for="">Sélectionnez l'année de la recherche : </label>
-                <select id="year">
+                <select id="year" class="form-controller">
                    <option id="initYear">Select year</option>
                     {{#if Template.subscriptionsReady}} {{#each years}} {{>year}} {{/each}} {{/if}}
                 </select>
                 <label for="">Sélectionnez l'option de rangement : </label>
-                <select class="option">
+                <select class="option form-controller">
                    <option >Select option</option>
                    <option value="0">Du moins peuplé au plus peuplé</option>
                    <option value="1">Du plus peuplé au moins peuplé</option>
@@ -29,10 +29,10 @@
             </svg>
         </div>
     </div>
-    <div class="info">
+    <div class="info hidden">
         <div class="text-center">
             <div id="name"></div>
-            <div id="code"></div>
+            <div id="code"></div> 
             <div id="pop"></div>
         </div>
     </div>
